@@ -1,11 +1,12 @@
 <template>
-
+  <div class="header">
+    i am header
+  </div>
 </template>
 
-<script>
-
+<script type="text/ecmascript-6">
+  export default {};
 </script>
 
-<style scoped>
-
+<style lang="stylus" rel="stylesheet/stylus">
 </style>
