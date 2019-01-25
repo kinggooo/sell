@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="navi">
-      <div class="navi-item"><router-link to="/goods">商品</router-link></div>
-      <div class="navi-item"><router-link to="/ratings">评论</router-link></div>
-      <div class="navi-item"><router-link to="/seller">商家</router-link></div>
+      <div class="navi-item">
+        <router-link to="/goods">商品</router-link>
+      </div>
+      <div class="navi-item">
+        <router-link to="/ratings">评论</router-link>
+      </div>
+      <div class="navi-item">
+        <router-link to="/seller">商家</router-link>
+      </div>
     </div>
     <div class="content">
       <router-view></router-view>
@@ -12,10 +18,26 @@
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import header from './components/header/Header';
 
+  const ERR_NO = 0;
+
   export default {
+    data() {
+      return {
+        seller: {}
+      };
+    },
+    created() {
+      this.$http.get('/api/seller').then((response) => {
+        response = response.body;
+        if (response.errno === ERR_NO) {
+          this.seller = response.data;
+          console.log(this.seller);
+        }
+      });
+    },
     components: {
       'v-header': header
     }
@@ -32,8 +54,4 @@
       .navi-item
         flex: 1
         text-align: center
-    .header
-      text-align: center
-    .content
-      text-align: center
 </style>
